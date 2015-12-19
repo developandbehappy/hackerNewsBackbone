@@ -3,15 +3,18 @@ var Backbone = Backbone || {};
 
 app.newsView = Backbone.View.extend({
   el: 'body',
+  events: {
+    'click #moreLoadData': 'moreLoadData'
+  },
   initialize: function () {
-
+    this.offset = 0;
   },
   render: function () {
     var self = this;
-    var res = '';
     this.data = [];
     $.when($.ajax("https://hacker-news.firebaseio.com/v0/topstories.json")).then(function (items) {
-      return self.getPromiseArray(0, 10, items);
+      self.data = items;
+      return self.getPromiseArray(0, 3, items);
     }, function (error) {
       console.log('Cant get data error ' + error);
       return false;
@@ -30,6 +33,7 @@ app.newsView = Backbone.View.extend({
     return template(context);
   },
   getPromiseArray: function (offset, limit, list) {
+    var self = this;
     var listSize = list.length;
     console.log('listSize', listSize);
     if (offset >= listSize) {
@@ -43,6 +47,7 @@ app.newsView = Backbone.View.extend({
       arrayOfPromise.push(promiseItem);
     }
     return $.when.apply($, arrayOfPromise).then(function () {
+      self.offset = offset + 1 + limit;
       return Array.prototype.slice.call(arguments);
     }, function () {
       console.log('Cant download data from listItems');
@@ -56,6 +61,18 @@ app.newsView = Backbone.View.extend({
       var data = item[0];
       html = self.templateListData(data);
       $('.listPost').append(html);
+    });
+  },
+  moreLoadData: function () {
+    var self = this;
+    console.log('this.data', this.data);
+    this.getPromiseArray(this.offset, 3, this.data).then(function (responseItemsList) {
+      if (!responseItemsList) {
+        alert('Did not download data please reload a page');
+        return false;
+      }
+      self.renderListData(responseItemsList);
+      console.log('last_response', responseItemsList);
     });
   }
 });
