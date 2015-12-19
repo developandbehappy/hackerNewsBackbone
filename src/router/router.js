@@ -7,6 +7,8 @@ app.Router = Backbone.Router.extend({
     this.on('route', function (route) {
       console.log('[router]: ', route);
     });
+    this.newsView = new app.newsView();
+    this.newsView.render();
   },
   routes: {
     '': 'home'
