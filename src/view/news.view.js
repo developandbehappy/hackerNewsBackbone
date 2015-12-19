@@ -62,10 +62,17 @@ app.newsView = Backbone.View.extend({
       html = self.templateListData(data);
       $('.listPost').append(html);
     });
+    window.setTimeout(function () {
+      self.enableBtn();
+    }, 1000);
   },
   moreLoadData: function () {
     var self = this;
     console.log('this.data', this.data);
+    if (this.btnIsDisabled()) {
+      return false;
+    }
+    this.disableBtn();
     this.getPromiseArray(this.offset, 3, this.data).then(function (responseItemsList) {
       if (!responseItemsList) {
         alert('Did not download data please reload a page');
@@ -74,5 +81,14 @@ app.newsView = Backbone.View.extend({
       self.renderListData(responseItemsList);
       console.log('last_response', responseItemsList);
     });
+  },
+  disableBtn: function () {
+    $('#moreLoadData').addClass('disabled');
+  },
+  enableBtn: function () {
+    $('#moreLoadData').removeClass('disabled');
+  },
+  btnIsDisabled: function () {
+    return $('#moreLoadData').hasClass('disabled');
   }
 });
