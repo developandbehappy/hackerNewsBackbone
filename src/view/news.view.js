@@ -84,9 +84,11 @@ app.newsView = Backbone.View.extend({
   },
   disableBtn: function () {
     $('#moreLoadData').addClass('disabled');
+    app.events.trigger('loaderShow');
   },
   enableBtn: function () {
     $('#moreLoadData').removeClass('disabled');
+    app.events.trigger('loaderHide');
   },
   btnIsDisabled: function () {
     return $('#moreLoadData').hasClass('disabled');
