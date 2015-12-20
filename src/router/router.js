@@ -7,13 +7,17 @@ app.Router = Backbone.Router.extend({
     this.on('route', function (route) {
       console.log('[router]: ', route);
     });
+    this.newsItem = new app.newsItem();
     this.newsView = new app.newsView();
-    this.newsView.render();
   },
   routes: {
-    '': 'home'
+    '': 'home',
+    'item/:id': 'item'
   },
   home: function () {
-    console.log('Hello world!');
+    this.newsView.render();
+  },
+  item: function (id) {
+    this.newsItem.render(id);
   }
 });

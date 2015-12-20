@@ -8,16 +8,23 @@
 </head>
 <body>
 <div class="container">
-    <h1 class="text-center">News-Hacker</h1>
+    <div class="header">
+        <h1 class="text-center">News-Hacker</h1>
+    </div>
+    <div class="content">
+        <div class="listPost col-xs-8 col-xs-offset-2">
 
-    <div class="listPost col-xs-8 col-xs-offset-2 text-center">
+        </div>
+        <br>
+        <button class="btn btn-default col-xs-2 col-xs-offset-5 disabled" id="moreLoadData">Еще 4</button>
+        <br>
+        <br>
+    </div>
+    <div class="itemContent">
 
     </div>
-    <br>
-    <button class="btn btn-default col-xs-2 col-xs-offset-5 disabled" id="moreLoadData">Подгрузить еще 4</button>
 </div>
-<br>
-<br>
+
 <div id="loadingWrapper">
     <div class="loader">Loading...</div>
 </div>
@@ -29,15 +36,27 @@
 <script src="/vendor/handlebars/handlebars.js"></script>
 <script src="src/modules/loader.js"></script>
 <script src="src/view/news.view.js"></script>
+<script src="src/view/newsItem.view.js"></script>
 <script src="src/router/router.js"></script>
 <script src="src/app.js"></script>
 <!--<script src="src/model/model.js"></script>-->
 <!--<script src="src/collection/collection.js"></script>-->
 <script id="postListItemTpl" type="text/x-handlebars-template">
-    <div class="postItem">
-        <h4 class="postTitle"><a href="{{url}}" target="_blank">{{title}}</a></h4>
-        <hr>
+    <div class="postItem panel panel-info">
+        <div class=" panel-heading postTitle">
+            <a href="/#/item/{{id}}" class="text-success">{{title}}</a>
+        </div>
+        <div class="panel-body">
+            <h6>Кол-во очков
+                <small class="label label-primary">{{score}}</small>
+            </h6>
+            <h6 class="text-danger">Was added {{time}}</h6>
+            <h6 class="text-primary">Autor: {{by}}</h6>
+        </div>
     </div>
+</script>
+<script id="postItemTpl" type="text/x-handlebars-template">
+
 </script>
 </body>
 </html>
