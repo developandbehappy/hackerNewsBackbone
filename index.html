@@ -15,7 +15,7 @@
 
     </div>
 </div>
-
+<br>
 <div id="loadingWrapper">
     <div class="loader">Loading...</div>
 </div>
@@ -37,8 +37,6 @@
 
     </div>
     <button class="btn btn-default col-xs-2 col-xs-offset-5 disabled" id="moreLoadData">Еще {{count}}</button>
-    <br>
-    <br>
 </script>
 <script id="postListItemTpl" type="text/x-handlebars-template">
     <div class="postItem panel panel-info">
@@ -53,7 +51,6 @@
             <h6 class="text-primary">Autor: {{by}}</h6>
         </div>
     </div>
-    <br>
 </script>
 <script id="postItemTpl" type="text/x-handlebars-template">
     <div class="postItem panel panel-info">
@@ -70,7 +67,9 @@
     </div>
 </script>
 <script id="postItemComment" type="text/x-handlebars-template">
-
+<div class="itemComment">
+{{text}}
+</div>
 </script>
 </body>
 </html>
