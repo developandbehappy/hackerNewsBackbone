@@ -28,6 +28,7 @@
 <script src="src/modules/loader.js"></script>
 <script src="src/view/news.view.js"></script>
 <script src="src/view/newsItem.view.js"></script>
+<script src="src/view/User.view.js"></script>
 <script src="src/router/router.js"></script>
 <script src="src/app.js"></script>
 <!--<script src="src/model/model.js"></script>-->
@@ -49,6 +50,7 @@
             </h6>
             <h6 class="text-danger">Was added {{time}}</h6>
             <h6 class="text-primary">Autor: {{by}}</h6>
+            <h6 class="text-primary">Кол-во комментариев: {{commentSize}}</h6>
         </div>
     </div>
 </script>
@@ -70,7 +72,7 @@
     </div>
 </script>
 <script id="postItemComment" type="text/x-handlebars-template">
-<div class="itemComment">
+<div class="itemComment comments">
     {{text}}
 </div>
     <br>

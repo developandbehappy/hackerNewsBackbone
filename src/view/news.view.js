@@ -60,6 +60,12 @@ app.newsView = Backbone.View.extend({
     var self = this;
     arrListData.forEach(function (item) {
       var data = item[0];
+      console.log('data', data);
+      if (typeof data.kids.length != 'undefined') {
+        data.commentSize = data.kids.length - 1;
+      } else {
+        data.commentSize = 0;
+      }
       html = html + self.templateListData(data);
     });
     return html;
