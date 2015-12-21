@@ -13,7 +13,7 @@ app.newsView = Backbone.View.extend({
   render: function () {
     var self = this;
     this.data = [];
-      $.when($.ajax("https://hacker-news.firebaseio.com/v0/topstories.json")).then(function (items) {
+    $.when($.ajax("https://hacker-news.firebaseio.com/v0/topstories.json")).then(function (items) {
       self.data = items;
       return self.getPromiseArray(0, self.defaultLimit, items);
     }, function (error) {
