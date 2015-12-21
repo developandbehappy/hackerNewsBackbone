@@ -12,15 +12,6 @@
         <h1 class="text-center">News-Hacker</h1>
     </div>
     <div class="content">
-        <div class="listPost col-xs-8 col-xs-offset-2">
-
-        </div>
-        <br>
-        <button class="btn btn-default col-xs-2 col-xs-offset-5 disabled" id="moreLoadData">Еще 4</button>
-        <br>
-        <br>
-    </div>
-    <div class="itemContent">
 
     </div>
 </div>
@@ -41,6 +32,14 @@
 <script src="src/app.js"></script>
 <!--<script src="src/model/model.js"></script>-->
 <!--<script src="src/collection/collection.js"></script>-->
+<script id="postListTpl" type="text/x-handlebars-template">
+    <div class="listPost col-xs-8 col-xs-offset-2">
+
+    </div>
+    <button class="btn btn-default col-xs-2 col-xs-offset-5 disabled" id="moreLoadData">Еще {{count}}</button>
+    <br>
+    <br>
+</script>
 <script id="postListItemTpl" type="text/x-handlebars-template">
     <div class="postItem panel panel-info">
         <div class=" panel-heading postTitle">
@@ -54,8 +53,23 @@
             <h6 class="text-primary">Autor: {{by}}</h6>
         </div>
     </div>
+    <br>
 </script>
 <script id="postItemTpl" type="text/x-handlebars-template">
+    <div class="postItem panel panel-info">
+        <div class=" panel-heading postTitle">
+            <a href="{{url}}" class="text-success">{{title}}</a>
+        </div>
+        <div class="panel-body">
+            <h6>Кол-во очков
+                <small class="label label-primary">{{score}}</small>
+            </h6>
+            <h6 class="text-danger">Was added {{time}}</h6>
+            <h6 class="text-primary">Autor: {{by}}</h6>
+        </div>
+    </div>
+</script>
+<script id="postItemComment" type="text/x-handlebars-template">
 
 </script>
 </body>

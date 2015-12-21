@@ -20,11 +20,13 @@ app.newsItem = Backbone.View.extend({
   renderItemData: function (item) {
     console.log('item', item);
     var itemData = this.templateItemData(item);
-    $('.listPost').append(item);
+    $('.content').html(itemData);
+    app.events.trigger('loaderHide');
   },
   templateItemData: function (context) {
     var source = $("#postItemTpl").html();
     var template = Handlebars.compile(source);
     return template(context);
   },
+
 });

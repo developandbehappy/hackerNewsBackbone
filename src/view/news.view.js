@@ -7,6 +7,7 @@ app.newsView = Backbone.View.extend({
     'click #moreLoadData': 'moreLoadData'
   },
   initialize: function () {
+    this.defaultLimit = 3;
     this.offset = 0;
   },
   render: function () {
@@ -14,7 +15,7 @@ app.newsView = Backbone.View.extend({
     this.data = [];
     $.when($.ajax("https://hacker-news.firebaseio.com/v0/topstories.json")).then(function (items) {
       self.data = items;
-      return self.getPromiseArray(0, 3, items);
+      return self.getPromiseArray(0, self.defaultLimit, items);
     }, function (error) {
       console.log('Cant get data error ' + error);
       return false;
@@ -23,7 +24,7 @@ app.newsView = Backbone.View.extend({
         alert('Did not download data please reload a page');
         return false;
       }
-      self.renderListData(responseItemsList);
+      self.renderList(responseItemsList);
       console.log('last_response', responseItemsList);
     });
   },
@@ -54,17 +55,14 @@ app.newsView = Backbone.View.extend({
       return false;
     });
   },
-  renderListData: function (arrListData) {
+  getListDataHtml: function (arrListData) {
     var html = '';
     var self = this;
     arrListData.forEach(function (item) {
       var data = item[0];
-      html = self.templateListData(data);
-      $('.listPost').append(html);
+      html = html + self.templateListData(data);
     });
-    window.setTimeout(function () {
-      self.enableBtn();
-    }, 1000);
+    return html;
   },
   moreLoadData: function () {
     var self = this;
@@ -73,12 +71,12 @@ app.newsView = Backbone.View.extend({
       return false;
     }
     this.disableBtn();
-    this.getPromiseArray(this.offset, 3, this.data).then(function (responseItemsList) {
+    this.getPromiseArray(this.offset, this.defaultLimit, this.data).then(function (responseItemsList) {
       if (!responseItemsList) {
         alert('Did not download data please reload a page');
         return false;
       }
-      self.renderListData(responseItemsList);
+      self.renderListItems(responseItemsList);
       console.log('last_response', responseItemsList);
     });
   },
@@ -92,5 +90,20 @@ app.newsView = Backbone.View.extend({
   },
   btnIsDisabled: function () {
     return $('#moreLoadData').hasClass('disabled');
+  },
+  template: function (context) {
+    var source = $("#postListTpl").html();
+    var template = Handlebars.compile(source);
+    return template(context);
+  },
+  renderList: function (responseItemsList) {
+    var html = this.template({count: this.defaultLimit});
+    $('.content').html(html);
+    this.renderListItems(responseItemsList);
+  },
+  renderListItems: function (responseItemsList) {
+    var html = this.getListDataHtml(responseItemsList);
+    $('.listPost').append(html);
+    this.enableBtn();
   }
 });
