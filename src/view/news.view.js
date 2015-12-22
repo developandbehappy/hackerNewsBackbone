@@ -56,7 +56,7 @@ app.newsView = Backbone.View.extend({
     arrListData.forEach(function (item) {
       var data = item[0];
       console.log('data', data);
-      if (typeof data.kids.length != 'undefined') {
+      if (data.kids) {
         data.commentSize = data.kids.length - 1;
       } else {
         data.commentSize = 0;

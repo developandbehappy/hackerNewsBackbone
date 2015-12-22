@@ -58,7 +58,7 @@
 <script id="postItemTpl" type="text/x-handlebars-template">
     <div class="postItem panel panel-info">
         <div class=" panel-heading postTitle">
-            <a href="{{url}}"  target="_blank" class="text-success">{{title}}</a>
+            <a href="{{url}}" target="_blank" class="text-success">{{title}}</a>
         </div>
         <div class="panel-body">
             <h6>Кол-во очков
@@ -99,20 +99,22 @@
 
     </div>
     <br>
-    <div class="nav-tabs navTabs">
 
+    <div class="nav-tabs navTabs">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#submitted" aria-controls="submitted" role="tab"
+                                                      data-toggle="tab">Submitted</a></li>
+            <li role="presentation"><a href="#comments" aria-controls="comments" role="tab"
+                                       data-toggle="tab">Comments</a></li>
+        </ul>
     </div>
 </script>
 <script id="userComments" type="text/x-handlebars-template">
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#submitted" aria-controls="submitted" role="tab" data-toggle="tab">Submitted</a></li>
-        <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
-    </ul>
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="submitted"></div>
-        <div role="tabpanel" class="tab-pane" id="comments"></div>
+        <div role="tabpanel" class="tab-pane active" id="submitted">{{title}}</div>
+        <div role="tabpanel" class="tab-pane" id="comments">{{title}}</div>
     </div>
 </script>
 

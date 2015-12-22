@@ -16,7 +16,6 @@ app.userView = Backbone.View.extend({
     });
   },
   renderUserData: function (userContext) {
-    userContext.sizeSubmitted = userContext.submitted.length - 1;
     var itemData = app.tpl.userData(userContext);
     $('.content').html(itemData);
     app.events.trigger('loaderHide');
@@ -41,9 +40,7 @@ app.userView = Backbone.View.extend({
     });
   },
   renderListSubmitted(arg) {
-    console.log('arg', arg);
     var itemData = this.templateUserSubmittedData(arg);
-    console.log('itemData', itemData);
     $('.navTabs').append(itemData);
     app.events.trigger('loaderHide');
   },
@@ -54,7 +51,6 @@ app.userView = Backbone.View.extend({
       var data = item[0];
       console.log('data', data);
       var result = app.tpl.userComments(data);
-      console.log('result', result);
       html = html + result;
     });
     return html;
