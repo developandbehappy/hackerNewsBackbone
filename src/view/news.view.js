@@ -28,11 +28,6 @@ app.newsView = Backbone.View.extend({
       console.log('last_response', responseItemsList);
     });
   },
-  templateListData: function (context) {
-    var source = $("#postListItemTpl").html();
-    var template = Handlebars.compile(source);
-    return template(context);
-  },
   getPromiseArray: function (offset, limit, list) {
     var self = this;
     var listSize = list.length;
@@ -66,7 +61,7 @@ app.newsView = Backbone.View.extend({
       } else {
         data.commentSize = 0;
       }
-      html = html + self.templateListData(data);
+      html = html + app.tpl.postListItemTpl(data);
     });
     return html;
   },
@@ -97,13 +92,8 @@ app.newsView = Backbone.View.extend({
   btnIsDisabled: function () {
     return $('#moreLoadData').hasClass('disabled');
   },
-  template: function (context) {
-    var source = $("#postListTpl").html();
-    var template = Handlebars.compile(source);
-    return template(context);
-  },
   renderList: function (responseItemsList) {
-    var html = this.template({count: this.defaultLimit + 1});
+    var html = app.tpl.postListTpl({count: this.defaultLimit + 1});
     $('.content').html(html);
     this.renderListItems(responseItemsList);
   },

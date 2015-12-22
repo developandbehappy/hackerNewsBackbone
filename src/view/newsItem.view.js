@@ -19,24 +19,13 @@ app.newsItem = Backbone.View.extend({
   clearContent: function () {
     $('.content').html('');
   },
-  templateItemData: function (context) {
-    var source = $("#postItemTpl").html();
-    var template = Handlebars.compile(source);
-    return template(context);
-  },
-  templateCommentItemData: function (context) {
-    var source = $("#postItemComment").html();
-    var template = Handlebars.compile(source);
-    return template(context);
-  },
-
   templateItemComment: function (context) {
     var html = '';
     var self = this;
     context.forEach(function (item) {
       var data = item[0];
 //      console.log('data', data);
-      var result = self.templateCommentItemData(data);
+      var result = app.tpl.postItemComment(data);
       console.log('result', result);
       html = html + result;
     });
@@ -44,9 +33,8 @@ app.newsItem = Backbone.View.extend({
     return html;
   },
   renderItemData: function (item) {
-    var itemData = this.templateItemData(item);
+    var itemData = app.tpl.postItemTpl(item);
     $('.content').html(itemData);
-//    app.events.trigger('loaderHide');
     return itemData;
   },
   renderListComments(arg) {

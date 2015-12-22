@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
+<div class="container" id="hnContainer">
     <div class="header">
         <h1 class="text-center">News-Hacker</h1>
     </div>
@@ -16,6 +16,7 @@
     </div>
 </div>
 <br>
+
 <div id="loadingWrapper">
     <div class="loader">Loading...</div>
 </div>
@@ -26,12 +27,12 @@
 <script src="/vendor/handlebars/handlebars.runtime.js"></script>
 <script src="/vendor/handlebars/handlebars.js"></script>
 <script src="src/modules/loader.js"></script>
+<script src="src/modules/template.js"></script>
 <script src="src/view/news.view.js"></script>
 <script src="src/view/newsItem.view.js"></script>
 <script src="src/view/User.view.js"></script>
 <script src="src/router/router.js"></script>
 <script src="src/app.js"></script>
-<!--<script src="src/model/model.js"></script>-->
 <!--<script src="src/collection/collection.js"></script>-->
 <script id="postListTpl" type="text/x-handlebars-template">
     <div class="listPost col-xs-8 col-xs-offset-2">
@@ -49,7 +50,7 @@
                 <small class="label label-primary">{{score}}</small>
             </h6>
             <h6 class="text-danger">Was added {{time}}</h6>
-            <h6 class="text-primary">Autor: {{by}}</h6>
+            <h6 class="text-primary">Autor:<a href="/#/user/{{by}}">{{by}}</a></h6>
             <h6 class="text-primary">Кол-во комментариев: {{commentSize}}</h6>
         </div>
     </div>
@@ -57,7 +58,7 @@
 <script id="postItemTpl" type="text/x-handlebars-template">
     <div class="postItem panel panel-info">
         <div class=" panel-heading postTitle">
-            <a href="{{url}}" class="text-success">{{title}}</a>
+            <a href="{{url}}"  target="_blank" class="text-success">{{title}}</a>
         </div>
         <div class="panel-body">
             <h6>Кол-во очков
@@ -72,10 +73,48 @@
     </div>
 </script>
 <script id="postItemComment" type="text/x-handlebars-template">
-<div class="itemComment comments">
-    {{text}}
-</div>
+    <div class="itemComment">
+        {{text}}
+    </div>
     <br>
 </script>
+<script id="userData" type="text/x-handlebars-template">
+    <div class="dataOfUser">
+        <div class="nickPoints col-xs-6">
+            <h4>Nick name:
+                <small>{{id}}</small>
+            </h4>
+            <h4>Points:
+                <small>{{karma}}</small>
+            </h4>
+        </div>
+        <div class="DateSubmitted col-xs-6">
+            <h4>Date of created:
+                <small>{{created}}</small>
+            </h4>
+            <h4>Submitted:
+                <small>{{sizeSubmitted}}</small>
+            </h4>
+        </div>
+
+    </div>
+    <br>
+    <div class="nav-tabs navTabs">
+
+    </div>
+</script>
+<script id="userComments" type="text/x-handlebars-template">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#submitted" aria-controls="submitted" role="tab" data-toggle="tab">Submitted</a></li>
+        <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="submitted"></div>
+        <div role="tabpanel" class="tab-pane" id="comments"></div>
+    </div>
+</script>
+
 </body>
 </html>
