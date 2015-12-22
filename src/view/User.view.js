@@ -6,53 +6,79 @@ app.userView = Backbone.View.extend({
 
   },
   render: function (userId) {
+    app.events.trigger('loaderShow');
     var self = this;
     this.clearContent();
     $.get('https://hacker-news.firebaseio.com/v0/user/' + userId + '.json').then(function (response) {
       self.renderUserData(response);
-      self.fetchSubmitted(response);
+      self.fetchSubmitted(response).then(function (response) {
+        self.renderStoryList(response);
+        self.renderCommentsList(response);
+      });
     }, function (error) {
       console.log('error', error);
     });
   },
   renderUserData: function (userContext) {
     var itemData = app.tpl.userData(userContext);
+    console.log('userContext', userContext);
     $('.content').html(itemData);
-    app.events.trigger('loaderHide');
-    return itemData;
   },
   clearContent: function () {
     $('.content').html('');
   },
-  fetchSubmitted: function (userSubmitted) {
+  fetchSubmitted: function (data) {
     var deferredsList = [];
     var self = this;
-    userSubmitted.submitted.map(function (it) {
+    data.submitted.map(function (it) {
       var iii = $.get('https://hacker-news.firebaseio.com/v0/item/' + it + '.json');
       deferredsList.push(iii);
     });
     return $.when.apply($, deferredsList).then(function () {
       var args = Array.prototype.slice.call(arguments);
-      self.renderListSubmitted(args);
+      return args.map(function (item) {
+        return item[0];
+      });
     }, function () {
       console.log('Cant download data from listItems');
       return false;
     });
   },
-  renderListSubmitted(arg) {
-    var itemData = this.templateUserSubmittedData(arg);
-    $('.navTabs').append(itemData);
+  renderStoryList: function(list) {
+    var html = '';
+    list.filter(function (item) {
+      return item.type === 'story';
+    }).forEach(function (item) {
+      html += app.tpl.userSubmitted(item);
+    });
+    $('#userStoryList').append(html);
     app.events.trigger('loaderHide');
   },
-  templateUserSubmittedData: function (context) {
+  renderCommentsList: function(list) {
     var html = '';
-    var self = this;
-    context.forEach(function (item) {
-      var data = item[0];
-      console.log('data', data);
-      var result = app.tpl.userComments(data);
-      html = html + result;
+    list.filter(function (item) {
+      return item.type === 'comment';
+    }).forEach(function (item) {
+      html += app.tpl.userComments(item);
     });
-    return html;
-  }
+    $('#userCommentsList').append(html);
+    app.events.trigger('loaderHide');
+  },
+//  renderListCommented(arg) {
+//    var itemData = this.templateUserCommentedData(arg);
+//    $('#comments').append(itemData);
+//    app.events.trigger('loaderHide');
+//  },
+//  templateUserSubmittedData: function (context) {
+//    var html = '';
+//    var self = this;
+//    context.forEach(function (item) {
+//      var data = item[0];
+//      data.submitted = data.title;
+//      var result = app.tpl.userComments(data);
+//      console.log('result', result);
+//      html = html + result;
+//    });
+//    return html;
+//  }
 });

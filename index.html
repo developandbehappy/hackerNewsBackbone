@@ -78,6 +78,7 @@
     </div>
     <br>
 </script>
+
 <script id="userData" type="text/x-handlebars-template">
     <div class="dataOfUser">
         <div class="nickPoints col-xs-6">
@@ -96,26 +97,34 @@
                 <small>{{sizeSubmitted}}</small>
             </h4>
         </div>
-
+        <pre>About me: {{about}}</pre>
     </div>
     <br>
 
     <div class="nav-tabs navTabs">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#submitted" aria-controls="submitted" role="tab"
-                                                      data-toggle="tab">Submitted</a></li>
-            <li role="presentation"><a href="#comments" aria-controls="comments" role="tab"
-                                       data-toggle="tab">Comments</a></li>
+            <li role="presentation" class="active">
+                <a href="#userStoryList" aria-controls="submitted" role="tab" data-toggle="tab">Story list</a>
+            </li>
+            <li role="presentation">
+                <a href="#userCommentsList" aria-controls="comments" role="tab" data-toggle="tab">Comments</a>
+            </li>
         </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="userStoryList"></div>
+        <div role="tabpanel" class="tab-pane" id="userCommentsList"></div>
     </div>
 </script>
 <script id="userComments" type="text/x-handlebars-template">
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="submitted">{{title}}</div>
-        <div role="tabpanel" class="tab-pane" id="comments">{{title}}</div>
-    </div>
+    <p class="userCommentsItem">{{text}}</p>
+    <br>
+</script>
+<script id="userSubmitted" type="text/x-handlebars-template">
+    <a href="/#/item/{{id}}" class="userSubmittedItem">{{title}}</a>
+    <br>
 </script>
 
 </body>

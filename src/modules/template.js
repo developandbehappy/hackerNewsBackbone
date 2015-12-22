@@ -31,5 +31,10 @@ app.tpl = {
     var source = $("#userComments").html();
     var template = Handlebars.compile(source);
     return template(context);
-  }
+  },
+  userSubmitted: function (context) {
+    var source = $("#userSubmitted").html();
+    var template = Handlebars.compile(source);
+    return template(context);
+  },
 };

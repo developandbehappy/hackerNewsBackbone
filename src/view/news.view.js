@@ -11,6 +11,7 @@ app.newsView = Backbone.View.extend({
     this.offset = 0;
   },
   render: function () {
+    app.events.trigger('loaderShow');
     var self = this;
     this.data = [];
     $.when($.ajax("https://hacker-news.firebaseio.com/v0/topstories.json")).then(function (items) {

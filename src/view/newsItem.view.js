@@ -6,6 +6,7 @@ app.newsItem = Backbone.View.extend({
 
   },
   render: function (id) {
+    app.events.trigger('loaderShow');
     var self = this;
     self.clearContent();
     $.get('https://hacker-news.firebaseio.com/v0/item/' + id + '.json').then(function (response) {
